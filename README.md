@@ -1,6 +1,6 @@
 # sta3
 
-> A Vue.js project
+> Frontend for STA
 
 ## Build Setup
 
