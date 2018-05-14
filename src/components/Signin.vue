@@ -1,6 +1,11 @@
 <template>
   <v-container fluid>
     <v-layout row wrap>
+      <v-flex>
+        <v-alert type="error" dismissible v-model="alert">
+          {{error}} <a href="/signup">Click here to sign up</a>
+        </v-alert>
+      </v-flex>
       <v-flex xs12 class="text-xs-center" mt-5>
         <h1>Sign In</h1>
       </v-flex>
@@ -36,13 +41,18 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
       username: "",
       password: "",
-      alert: false
-    };
+      alert: false,
+      message:null,
+    }
+  },
+  mounted: function(){
+    this.$store.dispatch('checkAuth')
   },
   methods: {
     userSignIn() {

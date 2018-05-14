@@ -6,11 +6,24 @@
       </v-flex>
       <v-flex xs12 class="text-xs-center" mt-3>
         <p>This is a user's home page</p>
+        {{user}}
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
 <script>
-export default {}
+export default {
+  data(){
+    return {
+      message:null
+    }
+  },
+  computed:{
+    user(){
+      return this.$store.state.user
+    }
+
+  }
+}
 </script>
