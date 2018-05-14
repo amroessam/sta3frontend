@@ -9,10 +9,10 @@
           <v-layout column>
             <v-flex>
               <v-text-field
-                name="email"
+                name="username"
                 label="Username"
-                id="email"
-                type="email"
+                id="username"
+                type="text"
                 v-model="username"
                 required></v-text-field>
             </v-flex>
@@ -37,33 +37,36 @@
 
 <script>
 export default {
-    data(){
-        return{
-            username:'',
-            password:'',
-            alert:false
-        }
-    },
-    methods:{
-        userSignIn(){
-            this.$store.dispatch('userSignIn', {username:this.username,password:this.password})
-        }
-    },
-    computed:{
-        error(){
-            return this.$store.state.error
-        },
-        loading(){
-            return this.$store.state.loading
-        }
-    },
-    watch:{
-        error(value){
-            if (value) this.alert = true
-        },
-        alert(value){
-            if(!value) this.$store.commit('setError', null)
-        }
+  data() {
+    return {
+      username: "",
+      password: "",
+      alert: false
+    };
+  },
+  methods: {
+    userSignIn() {
+      this.$store.dispatch("userSignIn", {
+        username: this.username,
+        password: this.password
+      });
     }
-}
+  },
+  computed: {
+    error() {
+      return this.$store.state.error;
+    },
+    loading() {
+      return this.$store.state.loading;
+    }
+  },
+  watch: {
+    error(value) {
+      if (value) this.alert = true;
+    },
+    alert(value) {
+      if (!value) this.$store.commit("setError", null);
+    }
+  }
+};
 </script>
