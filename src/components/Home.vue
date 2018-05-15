@@ -1,23 +1,19 @@
 <template>
-  <v-container fluid>
-    <v-layout row wrap>
-      <v-flex xs12 class="text-xs-center" mt-5>
-        <h1>Home page</h1>
-      </v-flex>
-      <v-flex xs12 class="text-xs-center" mt-3>
-        <p>This is a user's home page</p>
-        {{user}}
-      </v-flex>
-    </v-layout>
-  </v-container>
+  <chat-container :currentTeam="currentTeam"/>
 </template>
 
 <script>
+import chatContainer from '@/components/ChatContainer'
 export default {
   data(){
     return {
-      message:null
+      message:null,
+      currentTeam: 'Test Team Name For The Win',
+      userTeams: ['a','b','c']
     }
+  },
+  components:{
+    'chat-container' : chatContainer
   },
   computed:{
     user(){
