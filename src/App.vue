@@ -1,4 +1,4 @@
-<templFizxate>
+<template>
   <v-app dark>
     <v-navigation-drawer v-model="sidebar" app>
       <v-list>

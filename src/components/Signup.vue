@@ -65,10 +65,10 @@
 export default {
   data() {
     return {
-      username: "",
-      email: "",
-      password: "",
-      passwordConfirm: "",
+      username: '',
+      email: '',
+      password: '',
+      passwordConfirm: '',
       alert:false
     };
   },
