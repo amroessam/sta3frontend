@@ -11,6 +11,9 @@ export const store = new Vuex.Store({
         error: null,
         loading: false,
         message: null,
+        chats: [],
+        currentTeamId: null,
+        teamList: [],
         jwt: localStorage.getItem('token')
     },
     mutations: {
@@ -22,6 +25,9 @@ export const store = new Vuex.Store({
         },
         setLoading(state, payload) {
             state.loading = payload
+        },
+        setChats(state, payload) {
+            state.chats = payload
         },
         updateToken(state, newToken) {
             localStorage.setItem('token', newToken)
@@ -84,10 +90,38 @@ export const store = new Vuex.Store({
                     }
                 })
         },
-        logoutUser({commit}){
+        logoutUser({ commit }) {
             commit('setUser', null)
             commit('removeToken')
             router.push('/')
+        },
+        loadChats({ commit }) {
+            let currentTeamId = this.state.currentTeamId
+            axios.defaults.headers.common['Authorization'] = this.state.jwt
+            axios
+                .get('http://localhost:8081/api/v2/team/' + currentTeamId + '/messages').then((response) => {
+                    console.log(response)
+                })
+        },
+        loadTeams({ commit }) {
+            axios.defaults.headers.commit['Authorization'] = this.state.jwt
+            axios
+                .get('http://localhost:8081/api/v2/team').then((response) => {
+                    console.log(response)
+                })
+        },
+        createNewTeam({ commit }, payload) {
+            console.log(payload)
+            let newTeamName = payload.newTeamName
+            let newTeamDescription = payload.newTeamDescription
+            axios.defaults.headers.common['Authorization'] = this.state.jwt
+            axios
+                .post('http://localhost:8081/api/v2/team/newTeam', {
+                    teamName: newTeamName,
+                    teamDescription: newTeamDescription
+                }).then((response) => {
+                    console.log(response)
+                })
         }
     },
     getters: {
