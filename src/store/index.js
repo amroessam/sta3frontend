@@ -13,7 +13,9 @@ export const store = new Vuex.Store({
         message: null,
         chats: [],
         currentTeamId: null,
+        currentTeam: '',
         teamList: [],
+        newTeamMember: '',
         jwt: localStorage.getItem('token')
     },
     mutations: {
@@ -28,6 +30,11 @@ export const store = new Vuex.Store({
         },
         setChats(state, payload) {
             state.chats = payload
+        },
+        setCurrentTeam(state,payload){
+            state.currentTeamId = payload.teamID
+            state.currentTeam = payload.teamName
+
         },
         updateToken(state, newToken) {
             localStorage.setItem('token', newToken)
@@ -112,7 +119,6 @@ export const store = new Vuex.Store({
         },
         createNewTeam({ commit }, payload) {
             commit('setLoading', true)
-            console.log(payload)
             let newTeamName = payload.newTeamName
             let newTeamDescription = payload.newTeamDescription
             axios.defaults.headers.common['Authorization'] = this.state.jwt
@@ -121,13 +127,35 @@ export const store = new Vuex.Store({
                     teamName: newTeamName,
                     teamDescription: newTeamDescription
                 }).then((response) => {
+                    commit('setCurrentTeam', {
+                        teamID: response.data.teamID,
+                        teamName: newTeamName
+                    })
+                    console.log(this.state.currentTeam, this.state.currentTeamId)
+                }).catch((response) => {
+                    console.log(response)
+                    commit('setError', 'An Error has occured while creating the team.')
+                })
+            
+            commit('setLoading', false)
+        },
+        addTeamMember({ commit }, payload) {
+            commit('setLoading', true)
+            let newTeamMember = payload.newTeamMember
+            axios.defaults.headers.common['Authorization'] = this.state.jwt
+            axios
+                .post('http://localhost:8081/api/v2/team/addMember', {
+                    teamID: this.state.currentTeamId,
+                    newTeamMember: newTeamMember,
+                    newTeamMemberAdmin: payload.newTeamMemberAdmin
+                }).then((response) => {
                     console.log('worked')
                     console.log(response)
-                    commit('setLoading', false)
-                }).catch((response)=>{
+                }).catch((response) => {
                     console.log('did not worked')
                     console.log(response)
                 })
+            commit('setLoading', false)
         }
     },
     getters: {
