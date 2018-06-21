@@ -58,7 +58,7 @@
             ></v-text-field>
           </v-card-text>
           <v-card-actions>
-            <v-btn color="primary" flat @click="createNewTeam">Create</v-btn>
+            <v-btn color="primary" flat @click="createNewTeam" :loading="loading">Create</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -85,11 +85,16 @@ export default {
   },
   methods:{
     createNewTeam(){
-      this.$store.dispatch('createNewTeam', {
-        newTeamName:this.newTeamName,
-        newTeamDescription:this.newTeamDescription
-      })
+        this.$store.dispatch('createNewTeam', {
+            newTeamName:this.newTeamName,
+            newTeamDescription:this.newTeamDescription
+        })
     }
+  },
+  computed:{
+      loading(){
+          return this.$store.state.loading
+      }
   }
 }
 </script>

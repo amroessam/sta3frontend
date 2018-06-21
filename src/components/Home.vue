@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <v-container fluid>
     <v-layout row wrap>
       <!--<v-flex xs12 class="text-xs-center" mt-5>
@@ -16,33 +15,15 @@
 </template>
 
 <script>
-import Chat from './Chat'
-=======
-  <chat-container :currentTeam="currentTeam"/>
-</template>
-
-<script>
-import chatContainer from '@/components/ChatContainer'
->>>>>>> 7e03a9463676cbe43a6543eba7758abb0ddcd0f3
+// import Chat from './Chat'
+import chatContainer from './Chat'
 export default {
-  components:{
-    AppChat: Chat
-  },
   data(){
     return {
-      message:null,
-      currentTeam: 'Test Team Name For The Win',
-      userTeams: ['a','b','c']
     }
   },
   components:{
-    'chat-container' : chatContainer
-  },
-  computed:{
-    user(){
-      return this.$store.state.user
-    }
-
+    AppChat : chatContainer
   }
 }
 </script>

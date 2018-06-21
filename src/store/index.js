@@ -111,6 +111,7 @@ export const store = new Vuex.Store({
                 })
         },
         createNewTeam({ commit }, payload) {
+            commit('setLoading', true)
             console.log(payload)
             let newTeamName = payload.newTeamName
             let newTeamDescription = payload.newTeamDescription
@@ -120,6 +121,11 @@ export const store = new Vuex.Store({
                     teamName: newTeamName,
                     teamDescription: newTeamDescription
                 }).then((response) => {
+                    console.log('worked')
+                    console.log(response)
+                    commit('setLoading', false)
+                }).catch((response)=>{
+                    console.log('did not worked')
                     console.log(response)
                 })
         }
