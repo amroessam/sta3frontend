@@ -195,7 +195,7 @@ export default {
   background-color: #546a7b;
 }
 .message {
-  align: left;
+  text-align: left;
   margin-bottom: 3px;
 }
 .message.own {
