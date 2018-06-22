@@ -94,7 +94,13 @@ export const store = new Vuex.Store({
                         commit('setLoading', false)
                         commit('setError', null)
                         router.push('/home')
+                    }else{
+                        router.push('/')
                     }
+                }).catch((error)=>{
+                    //TODO: LOOK INTO THIs when logging in and the rerouting to home/login
+                    console.log(error)
+                    // router.push('/')
                 })
         },
         logoutUser({ commit }) {
@@ -111,9 +117,10 @@ export const store = new Vuex.Store({
                 })
         },
         loadTeams({ commit }) {
-            axios.defaults.headers.commit['Authorization'] = this.state.jwt
+            console.log(this.state.jwt)
+            axios.defaults.headers.common['Authorization'] = this.state.jwt
             axios
-                .get('http://localhost:8081/api/v2/team').then((response) => {
+                .get('http://localhost:8081/api/v2/team/getAllTeams').then((response) => {
                     console.log(response)
                 })
         },
@@ -145,6 +152,7 @@ export const store = new Vuex.Store({
             axios.defaults.headers.common['Authorization'] = this.state.jwt
             axios
                 .post('http://localhost:8081/api/v2/team/addMember', {
+                    userID: this.state.user._id,
                     teamID: this.state.currentTeamId,
                     newTeamMember: newTeamMember,
                     newTeamMemberAdmin: payload.newTeamMemberAdmin

@@ -24,6 +24,10 @@ export default {
   },
   components:{
     AppChat : chatContainer
+  },
+  mounted: function(){
+    this.$store.dispatch('checkAuth')
+    this.$store.dispatch('loadTeams')
   }
 }
 </script>
